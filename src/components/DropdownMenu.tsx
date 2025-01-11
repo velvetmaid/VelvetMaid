@@ -26,12 +26,9 @@ export default function DropdownMenu() {
       >
         <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md border border-zinc-400 dark:border-zinc-700 bg-orange-50 dark:bg-zinc-800 shadow-xl ring-1 ring-black ring-opacity-5 focus:outline-none divide-zinc-400 dark:divide-zinc-700">
           <div className="py-2">
-            {/* <div className="px-3 py-2 uppercase font-bold text-xs">
-              ABC DEF
-            </div> */}
             <DropdownMenuItem href="/Work">Work</DropdownMenuItem>
             <DropdownMenuItem href="/About">About</DropdownMenuItem>
-            <a className="w-1" href="https://github.com/camieuxgoofy" target="_blank">
+            <a className="w-1" href="https://github.com/velvetmaid" target="_blank">
               <IoLogoGithub className="md:hidden mx-auto" size={30} />
             </a>
           </div>

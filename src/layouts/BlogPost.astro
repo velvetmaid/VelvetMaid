@@ -17,14 +17,19 @@ export interface Props {
   };
 }
 
-const { title, description, heroImage } = Astro.props;
+const {
+  content: { title, description, heroImage },
+} = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={SITE_TITLE + ` / ${title}`} description={description} image={heroImage} />
-    
+    <BaseHead
+      title={SITE_TITLE + ` / ${title}`}
+      description={description}
+      image={heroImage}
+    />
   </head>
 
   <Body>
