@@ -12,7 +12,7 @@ import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://ghettoscum.vercel.app',
+  site: 'https://velvetmaid.my.id',
   integrations: [sitemap(), react(), image(), tailwind(), mdx()],
   output: "server",
   adapter: vercel()
