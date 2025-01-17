@@ -1,7 +1,7 @@
 ---
-import HeaderLink from "./HeaderLink.astro";
-import { HOMEPAGE_URL } from "../consts";
+import { SITE_TITLE, SOCIAL_LINKS } from "../consts";
 import { IoLogoGithub } from "react-icons/io5/index.js";
+import HeaderLink from "./HeaderLink.astro";
 import FootprintIcon from "./icons/Footprint";
 import ThemeToggle from "./ThemeToggleButton";
 import DropdownMenu from "./DropdownMenu";
@@ -13,11 +13,14 @@ import DropdownMenu from "./DropdownMenu";
       <a href="/" class="group">
         <h2 class="font-semibold tracking-tighter p-2 font-patrickHand text-lg">
           <FootprintIcon />
-          Velvet Maid
+          {SITE_TITLE}
         </h2>
       </a>
       <div class="items-center gap-6 hidden md:flex">
-        <HeaderLink href="https://github.com/velvetmaid" target="_blank">
+        <HeaderLink
+          href={SOCIAL_LINKS.find((link) => link.key === "github")?.url}
+          target="_blank"
+        >
           <IoLogoGithub size={30} />
         </HeaderLink>
       </div>

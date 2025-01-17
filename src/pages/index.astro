@@ -1,8 +1,8 @@
 ---
+import { SITE_TITLE, SITE_DESCRIPTION, SITE_AVATAR } from "../consts";
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import Body from "../components/Body.astro";
 import Content from "../components/Content.astro";
 
@@ -25,14 +25,14 @@ const works = (await Astro.glob("./works/*md")).sort(
         <section>
           <img
             class="w-24 rounded-full mx-auto border-x-[1.35px] border-y-[0.6px] bg-[#a1a8e1] dark:bg-[#646fa3] border-none"
-            src="https://avatars.githubusercontent.com/u/72339948?v=4"
-            alt="Github Avatar"
+            src={SITE_AVATAR}
+            alt={SITE_TITLE}
           />
           <div
             class="box-content dark:bg-[#330a53] bg-violet-300 rounded-lg p-3 m-6 text-center"
           >
             <p class="font-macondo font-semibold">
-              I started all this from scratch with no thought or design
+              {SITE_DESCRIPTION}
             </p>
           </div>
         </section>
