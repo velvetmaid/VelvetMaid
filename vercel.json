@@ -1,14 +1,14 @@
 {
   "redirects": [
     {
-      "source": "/(.*)",
+      "source": "/",
       "has": [{ "type": "host", "value": "blog.velvetmaid.my.id" }],
-      "destination": "/works/$1"
+      "destination": "/works"
     },
     {
-      "source": "/(.*)",
+      "source": "/",
       "has": [{ "type": "host", "value": "docs.velvetmaid.my.id" }],
-      "destination": "/docs/$1"
+      "destination": "/docs"
     }
   ]
 }
