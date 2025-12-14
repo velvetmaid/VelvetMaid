@@ -1,14 +1,28 @@
-import { NextResponse } from 'next/server'
+export function middleware(request) {
+  const url = new URL(request.url)
+  const host = request.headers.get('host')
 
-export function middleware(req) {
-  const host = req.headers.get('host')
-  const pathname = req.nextUrl.pathname
-
-  if (host === 'blog.velvetmaid.my.id' && pathname === '/') {
-    return NextResponse.rewrite(new URL('/works', req.url))
+  // blog subdomain → works
+  if (host === 'blog.velvetmaid.my.id' && url.pathname === '/') {
+    url.pathname = '/works'
+    return new Response(null, {
+      status: 200,
+      headers: {
+        'x-middleware-rewrite': url.toString()
+      }
+    })
   }
 
-  if (host === 'docs.velvetmaid.my.id' && pathname === '/') {
-    return NextResponse.rewrite(new URL('/docs', req.url))
+  // docs subdomain → docs
+  if (host === 'docs.velvetmaid.my.id' && url.pathname === '/') {
+    url.pathname = '/docs'
+    return new Response(null, {
+      status: 200,
+      headers: {
+        'x-middleware-rewrite': url.toString()
+      }
+    })
   }
+
+  return
 }
