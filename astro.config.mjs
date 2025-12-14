@@ -4,7 +4,7 @@ import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
-// import vercel from "@astrojs/vercel/serverless";
+import vercel from "@astrojs/vercel";
 
 // https://astro.build/config
 import mdx from "@astrojs/mdx";
@@ -13,6 +13,6 @@ import mdx from "@astrojs/mdx";
 export default defineConfig({
   site: 'https://velvetmaid.my.id',
   integrations: [sitemap(), react(), tailwind(), mdx()],
-  // output: "server",
-  // adapter: vercel()
+  output: "server",
+  adapter: vercel()
 });
