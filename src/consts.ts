@@ -2,7 +2,7 @@
 // You can import this data from anywhere in your site by using the `import` keyword.
 
 export const SITE_TITLE = 'Velvet Maid';
-export const SITE_DESCRIPTION = 'I started all this from scratch with no thought or design';
+export const SITE_DESCRIPTION = 'Currently building things & documenting mistakes . . .';
 export const SITE_AVATAR = 'https://avatars.githubusercontent.com/u/72339948?v=4';
 export const HOMEPAGE_URL = 'https://velvetmaid.my.id';
 

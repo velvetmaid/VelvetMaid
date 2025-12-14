@@ -1,0 +1,14 @@
+{
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "blog.velvetmaid.my.id" }],
+      "destination": "/works/:path*"
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "docs.velvetmaid.my.id" }],
+      "destination": "/docs/:path*"
+    }
+  ]
+}
