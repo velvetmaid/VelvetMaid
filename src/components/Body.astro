@@ -1,5 +1,15 @@
+---
+import CustomCursors from "./CustomCursors.astro";
+import LoadingOverlay from "./LoadingOverlay.astro";
+
+const showLoading = true;
+---
+
 <body
   class="font-handlee bg-[#d4d8f7] dark:bg-[#212638] text-purple-900 dark:text-fuchsia-200 break-words leading-6 transition-colors duration-500"
 >
   <slot />
+  <CustomCursors />
+  <LoadingOverlay show={showLoading} />
 </body>
+

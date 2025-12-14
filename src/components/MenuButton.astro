@@ -1,0 +1,93 @@
+<div class="relative">
+  <button
+    id="menuButton"
+    class="w-10 h-10 flex items-center justify-center rounded-md bg-violet-400/10 hover:bg-violet-400/20 transition"
+  >
+    <!-- Grid icon -->
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6 text-violet-400"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M4 4h6v6H4V4zm10 0h6v6h-6V4zM4 14h6v6H4v-6zm10 0h6v6h-6v-6z"></path>
+    </svg>
+  </button>
+
+  <!-- Menu icons -->
+  <div
+    id="menuIcons"
+    class="absolute left-1/2 -translate-x-1/2 top-full mt-4 flex flex-col items-center gap-4"
+  >
+    <a
+      href="/work"
+      class="w-10 h-10 flex items-center justify-center rounded-md bg-violet-400/10 hover:bg-violet-400/20 transition"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5 text-violet-400"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 4v16m8-8H4"></path>
+      </svg>
+    </a>
+    <a
+      href="/notes"
+      class="w-10 h-10 flex items-center justify-center rounded-md bg-violet-400/10 hover:bg-violet-400/20 transition"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5 text-violet-400"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M7 8h10M7 16h10M5 20h14V4H5v16z"></path>
+      </svg>
+    </a>
+    <a
+      href="/contact"
+      class="w-10 h-10 flex items-center justify-center rounded-md bg-violet-400/10 hover:bg-violet-400/20 transition"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5 text-violet-400"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M16 12a4 4 0 01-8 0m8 0v6m-8-6v6"></path>
+      </svg>
+    </a>
+  </div>
+</div>
+
+<script>
+  const menuButton = document.getElementById("menuButton");
+  const menuIcons = document.getElementById("menuIcons");
+
+  if (menuButton && menuIcons) {
+    menuButton.addEventListener("click", () => {
+      menuIcons.classList.toggle("hidden");
+    });
+  }
+</script>

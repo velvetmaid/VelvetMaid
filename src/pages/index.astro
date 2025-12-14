@@ -1,79 +1,62 @@
 ---
 import { SITE_TITLE, SITE_DESCRIPTION, SITE_AVATAR } from "../consts";
 import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Body from "../components/Body.astro";
-import Content from "../components/Content.astro";
+import TopBar from "../components/TopBar.astro";
+import HeroSection from "../components/HeroSection.astro";
+import CustomCursors from "../components/CustomCursors.astro";
+import LoadingOverlay from "../components/LoadingOverlay.astro";
 
-const works = (await Astro.glob("./works/*md")).sort(
+const works = Object.values(
+  import.meta.glob("./works/*.md", { eager: true })
+).sort(
   (a: any, b: any) =>
     new Date(b.frontmatter.createdAt).valueOf() -
     new Date(a.frontmatter.createdAt).valueOf()
 );
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
   <Body>
-    <Header title={SITE_TITLE} />
-    <main class="pt-12 mb-12">
-      <Content>
-        <section>
-          <img
-            class="w-24 rounded-full mx-auto border-x-[1.35px] border-y-[0.6px] bg-[#a1a8e1] dark:bg-[#646fa3] border-none"
-            src={SITE_AVATAR}
-            alt={SITE_TITLE}
-          />
-          <div
-            class="box-content dark:bg-[#330a53] bg-violet-300 rounded-lg p-3 m-6 text-center"
-          >
-            <p class="font-macondo font-semibold">
-              {SITE_DESCRIPTION}
-            </p>
-          </div>
-        </section>
-        <div class="pb-8 w-ful mx-auto grid place-items-center">
-          <button
-            class="py-[0.15rem] px-4 font-bold items-center bg-amber-200 dark:bg-amber-300 dark:text-violet-700 rounded-lg text-xs"
-            >My Resume</button
-          >
-        </div>
-        <section>
-          <span>
-            <h1 class="text-xl">Works</h1>
-          </span>
-          <hr class="py-3" />
+    <!-- Background image + overlay -->
+    <div class="fixed inset-0 z-0">
+      <img src="/assets/background.png" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-black/20"></div>
+    </div>
 
-          <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {
-              works.map((work) => (
-                <li class="text-center mb-4">
-                  <a href={work.url}>
-                    <img
-                      class="border border-slate-300 dark:border-zinc-700 rounded-xl h-5/6 object-cover"
-                      src={work.frontmatter.heroImage}
-                      alt="Thumbnail"
-                    />
-                    <div class="mt-3 text-xl font-bold">
-                      {work.frontmatter.title}
-                    </div>
-                    {work.frontmatter.description && (
-                      <div class="opacity-70">
-                        {work.frontmatter.description}
-                      </div>
-                    )}
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
+    <!-- Main content -->
+    <main class="relative h-screen z-10 flex items-center justify-center">
+      <div
+        id="card"
+        class="bg-white/30 dark:bg-gray-900/30 backdrop-blur-md rounded-lg p-6 md:p-12 max-w-3xl w-full mx-4 relative overflow-hidden"
+      >
+        <section class="space-y-8 relative z-10">
+          <TopBar />
+          <HeroSection
+            title={SITE_TITLE}
+            description={SITE_DESCRIPTION}
+            avatar={SITE_AVATAR}
+            worksCount={works.length}
+          />
         </section>
-      </Content>
+        <div id="glow" class="absolute inset-0 pointer-events-none"></div>
+      </div>
     </main>
-    <Footer />
   </Body>
 </html>
+
+<script>
+  const glow = document.getElementById("glow");
+  document.addEventListener("mousemove", (e) => {
+    if (!glow) return;
+    const rect = glow.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    glow.style.background = `radial-gradient(350px circle at ${x}px ${y}px, rgba(139,92,246,0.5), transparent 50%)`;
+  });
+</script>

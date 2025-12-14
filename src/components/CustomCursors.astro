@@ -1,0 +1,84 @@
+---
+const cursors = {
+  alternate: "/assets/cursors/alternate.gif",
+  cross: "/assets/cursors/cross.gif",
+  handwriting: "/assets/cursors/handwriting.gif",
+  help: "/assets/cursors/help.gif",
+  link: "/assets/cursors/link.gif",
+  loc: "/assets/cursors/loc.gif",
+  person: "/assets/cursors/person.gif",
+  pointer: "/assets/cursors/pointer.gif",
+  text: "/assets/cursors/text.gif",
+  unavailable: "/assets/cursors/unavailable.gif",
+  working: "/assets/cursors/working.gif",
+  elian1: "/assets/cursors/艾莲表情包.gif",
+  elian2: "/assets/cursors/艾莲表情包2.gif",
+  elian3: "/assets/cursors/艾莲表情包3.gif",
+  elian4: "/assets/cursors/艾莲表情包4.gif",
+};
+
+const { size = 48 } = Astro.props;
+---
+
+<div id="custom-cursor"
+     style={`width:${size}px;height:${size}px;`}
+     class="fixed pointer-events-none z-50">
+  <img id="cursor-img" src={cursors.cross} alt="cursor" class="w-full h-full" />
+</div>
+
+<style>
+  body, a, button, input, textarea {
+    cursor: none !important;
+  }
+  #custom-cursor {
+    transform: translate(-50%, -50%);
+  }
+</style>
+
+<script define:vars={{ cursors }}>
+  const cursor = document.getElementById("custom-cursor");
+  const cursorImg = document.getElementById("cursor-img");
+
+  if (!cursor || !cursorImg) throw new Error("Cursor elements not found");
+
+  // Move cursor custom
+  document.addEventListener("mousemove", (e) => {
+    cursor.style.left = e.clientX + "px";
+    cursor.style.top = e.clientY + "px";
+  });
+
+  // Rules mapping → cursor key
+const rules = [
+  { check: (el) => el.tagName && el.tagName.toLowerCase() === "a", type: "loc" },
+  { check: (el) => el.tagName && el.tagName.toLowerCase() === "button", type: "loc" },
+  { check: (el) => el.tagName && ["input","textarea"].includes(el.tagName.toLowerCase()), type: "text" },
+  { check: (el) => "disabled" in el && el.disabled, type: "unavailable" },
+  { check: (el) => el.classList && el.classList.contains("loading"), type: "working" },
+  { check: (el) => el.classList && el.classList.contains("cursor-alternate"), type: "alternate" },
+  { check: (el) => el.classList && el.classList.contains("cursor-handwriting"), type: "handwriting" },
+  { check: (el) => el.classList && el.classList.contains("cursor-help"), type: "help" },
+  { check: (el) => el.classList && el.classList.contains("cursor-loc"), type: "loc" },
+  { check: (el) => el.classList && el.classList.contains("cursor-person"), type: "person" },
+  { check: (el) => el.classList && el.classList.contains("cursor-elian1"), type: "elian1" },
+  { check: (el) => el.classList && el.classList.contains("cursor-elian2"), type: "elian2" },
+  { check: (el) => el.classList && el.classList.contains("cursor-elian3"), type: "elian3" },
+  { check: (el) => el.classList && el.classList.contains("cursor-elian4"), type: "elian4" },
+];
+
+  document.addEventListener("mouseenter", (e) => {
+    const target = e.target;
+    if (!target || !cursorImg) return;
+
+    let type = "cross"; // default
+    for (const rule of rules) {
+      if (rule.check(target)) {
+        type = rule.type;
+        break;
+      }
+    }
+
+    if (cursorImg.src !== window.location.origin + cursors[type]) {
+      cursorImg.src = cursors[type];
+    }
+  }, true);
+</script>
