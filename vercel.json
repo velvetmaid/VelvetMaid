@@ -1,14 +1,14 @@
 {
-  "rewrites": [
+  "redirects": [
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "has": [{ "type": "host", "value": "blog.velvetmaid.my.id" }],
-      "destination": "/works/:path*"
+      "destination": "/works/$1"
     },
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "has": [{ "type": "host", "value": "docs.velvetmaid.my.id" }],
-      "destination": "/docs/:path*"
+      "destination": "/docs/$1"
     }
   ]
 }
