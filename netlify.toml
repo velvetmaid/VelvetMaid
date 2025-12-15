@@ -7,11 +7,4 @@
   to = "/works/:splat"
   status = 200
   force = true
-  conditions = { Host = ["blog.velvetmaid.my.id"] }
-
-[[redirects]]
-  from = "/*"
-  to = "/docs/:splat"
-  status = 200
-  force = true
-  conditions = { Host = ["docs.velvetmaid.my.id"] }
+  conditions = { Host = ["blog.velvetmaid.my.id", "www.blog.velvetmaid.my.id"] }
