@@ -3,8 +3,13 @@
   publish = "dist"
 
 [[redirects]]
-  from = "/*"
-  to = "/works/:splat"
+  from = "https://blog.velvetmaid.my.id/"
+  to   = "/works/index.html"
   status = 200
   force = true
-  conditions = { Host = ["blog.velvetmaid.my.id", "www.blog.velvetmaid.my.id"] }
+
+[[redirects]]
+  from = "https://blog.velvetmaid.my.id/*"
+  to   = "/works/:splat"
+  status = 200
+  force = true
