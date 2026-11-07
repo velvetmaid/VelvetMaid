@@ -1,0 +1,24 @@
+---
+import { ARCHIVES, SITE_TITLE } from "../../consts";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArchiveDeck from "../../components/ArchiveDeck.astro";
+
+export function getStaticPaths() {
+  return (Object.keys(ARCHIVES) as (keyof typeof ARCHIVES)[]).map((collection) => ({
+    params: { collection },
+    props: { collection },
+  }));
+}
+
+const { collection } = Astro.props;
+const { title, description } = ARCHIVES[collection];
+---
+
+<BaseLayout
+  title={`${title} | ${SITE_TITLE}`}
+  description={description}
+>
+  <main>
+    <ArchiveDeck collection={collection} />
+  </main>
+</BaseLayout>

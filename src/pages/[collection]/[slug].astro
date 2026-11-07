@@ -1,0 +1,31 @@
+---
+import { getCollection, render } from 'astro:content';
+import PostLayout from '../../layouts/Post.astro';
+import { toRouteSlug } from '../../utils/urlSlug';
+
+export async function getStaticPaths() {
+  const posts = [
+    ...await getCollection('notes', ({ data }) => data.public),
+    ...await getCollection('stuff', ({ data }) => data.public),
+  ];
+  return posts.map((post) => ({
+    params: { collection: post.collection, slug: toRouteSlug(post.id) },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<PostLayout
+  content={{
+    type: post.collection,
+    title: post.data.title,
+    description: post.data.description ?? '',
+    heroImage: post.data.heroImage,
+    tags: post.data.tags,
+  }}
+>
+  <Content />
+</PostLayout>

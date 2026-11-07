@@ -1,0 +1,64 @@
+---
+import { getCollection } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+import PageSection from './PageSection.astro';
+import { ARCHIVES, ARCHIVE_EMPTY_MESSAGE } from '../consts';
+import { toRouteSlug } from '../utils/urlSlug';
+
+interface Props {
+  collection: keyof typeof ARCHIVES;
+}
+
+const { collection } = Astro.props;
+const archive = ARCHIVES[collection];
+const entries = (
+  await getCollection(collection, ({ data }) => data.public)
+).sort(
+  (a, b) =>
+    (b.data.pubDate?.valueOf() ?? 0) - (a.data.pubDate?.valueOf() ?? 0) ||
+    a.id.localeCompare(b.id),
+);
+---
+
+    <PageSection
+      headingId="archive-title"
+      eyebrow={archive.eyebrow}
+      title={archive.heading}
+      description={archive.introduction}
+    >
+      {entries.length === 0 ? <p class="empty-state">{ARCHIVE_EMPTY_MESSAGE}</p> : (
+        <ul class="entry-list">
+          {entries.map((entry, index) => (
+            <li>
+              <a class="entry-card" href={`/${collection}/${toRouteSlug(entry.id)}/`}>
+                <span class="entry-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                <div class="entry-copy">
+                  <div class="entry-meta">
+                    <span>{entry.data.tags[0] ?? archive.entryLabel}</span>
+                    {entry.data.pubDate && <FormattedDate date={entry.data.pubDate} />}
+                  </div>
+                  <h2>{entry.data.title}</h2>
+                  {entry.data.description && <p>{entry.data.description}</p>}
+                </div>
+                <span class="entry-arrow" aria-hidden="true">↗</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </PageSection>
+
+<style>
+  .entry-list { display: grid; gap: .85rem; }
+  .entry-card { display: flex; gap: 1.25rem; padding: 1.5rem; border: 1px solid var(--line); border-radius: .85rem; background: var(--wash); transition: border-color .15s, transform .15s; }
+  .entry-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .entry-number { font-size: .65rem; color: var(--muted); padding-top: .15rem; }
+  .entry-copy { flex: 1; min-width: 0; }
+  .entry-meta { display: flex; flex-wrap: wrap; gap: .75rem; font-size: .6rem; color: var(--muted); }
+  .entry-meta > span { color: var(--accent); }
+  h2 { margin-top: .6rem; font-size: 1rem; font-weight: 700; letter-spacing: -.03em; }
+  .entry-copy p { margin-top: .5rem; font-size: .75rem; line-height: 1.9; color: var(--muted); }
+  .entry-arrow { color: var(--accent); }
+  .empty-state { padding: 2rem 0; color: var(--muted); font-size: .8rem; }
+  @media (max-width: 480px) { .entry-card { padding: 1.1rem; gap: .75rem; } .entry-number { display: none; } }
+</style>

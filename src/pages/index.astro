@@ -1,0 +1,11 @@
+---
+import { SITE_AVATAR, SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroSection from "../components/HeroSection.astro";
+---
+
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <main>
+    <HeroSection title={SITE_TITLE} avatar={SITE_AVATAR} />
+  </main>
+</BaseLayout>

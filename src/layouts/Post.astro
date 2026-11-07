@@ -1,0 +1,87 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import { ARCHIVES, SITE_TITLE } from "../consts";
+
+export interface Props {
+  content: {
+    type: keyof typeof ARCHIVES;
+    title: string;
+    description: string;
+    heroImage?: string;
+    tags: string[];
+  };
+}
+
+const {
+  content: { type, title, description, heroImage, tags },
+} = Astro.props;
+---
+
+<BaseLayout
+  title={`${SITE_TITLE} / ${title}`}
+  description={description}
+  image={heroImage}
+>
+  <main id="archive-content">
+  <article class="post">
+    <a class="text-sm text-violet-900 underline decoration-violet-400/50 underline-offset-4 dark:text-violet-200" href={`/${type}/`}>
+      ← Back to {type}
+    </a>
+    {
+      heroImage && (
+        <img
+          class="post-image"
+          width={720}
+          height={360}
+          src={heroImage}
+          alt=""
+        />
+      )
+    }
+
+    <header class="post-header">
+      <h1>{title}</h1>
+      <p>{description}</p>
+      {tags.length > 0 && <ul class="mt-4 flex flex-wrap gap-2" aria-label="Tags">
+        {tags.map((tag) => <li class="rounded-full bg-violet-400/15 px-3 py-1 text-xs">{tag}</li>)}
+      </ul>}
+    </header>
+
+    <div class="px-8 mx-auto max-w-3xl">
+    <div class="px-8 mx-auto max-w-3xl">
+      <div class="markdown-body">
+        <slot />
+      </div>
+      </div>
+    </div>
+  </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .post-image {
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 1rem;
+    object-fit: cover;
+  }
+
+  .post-header {
+    margin: 2rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 1.5rem;
+  }
+
+  h1 {
+    margin: 0.75rem 0 0;
+    font-size: clamp(2.25rem, 6vw, 4rem);
+    line-height: 1;
+  }
+
+  .post-header > p {
+    margin: 1rem 0 0;
+    opacity: 0.75;
+    font-size: 1.1rem;
+    line-height: 1.65;
+  }
+</style>

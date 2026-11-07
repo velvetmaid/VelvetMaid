@@ -1,0 +1,31 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Body from "../components/Body.astro";
+import TopBar from "../components/TopBar.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+}
+
+const { title, description, image } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} image={image} />
+  </head>
+
+  <Body>
+    <div class="relative z-10">
+      <TopBar />
+      <slot />
+      <footer class="site-footer">
+        <span>It works. Probably.</span>
+        <a href="/rss.xml">Follow via RSS <span aria-hidden="true">↗</span></a>
+      </footer>
+    </div>
+  </Body>
+</html>

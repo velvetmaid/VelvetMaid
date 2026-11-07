@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageSection from "../components/PageSection.astro";
+import { SITE_TITLE } from "../consts";
+---
+
+<BaseLayout
+  title={`Page not found | ${SITE_TITLE}`}
+  description="This page doesn't exist."
+>
+  <main>
+    <PageSection
+      headingId="not-found-title"
+      eyebrow="404 / Not found"
+      title="Nothing to see here."
+      description="This page doesn't exist."
+    >
+        <a class="text-xs text-[var(--accent)] underline underline-offset-[.25em]" href="/">Back</a>
+    </PageSection>
+  </main>
+</BaseLayout>
